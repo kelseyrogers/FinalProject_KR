@@ -19,14 +19,12 @@ function setup() {
     var canvas = createCanvas(windowWidth, windowHeight);
     background(80);
     frameRate(30);
-
     colorMode(HSB, 360, 100, 100, 100);
 
     var at = new Attractor(createVector(width / 2, height / 2), 1);
     attractors.push(at);
 
     print(table.getRowCount() + "total rows in table");
-
 
     var aggregatedInvestors = {};
     for (var r = 0; r < table.getRowCount(); r++) {
@@ -40,22 +38,14 @@ function setup() {
             } else {
                 aggregated[cname] = invested;
             }
-            
             if (aggregatedInvestors.hasOwnProperty(iname)){
-                aggregatedInvestors[iname]+=invested;
-                
+                aggregatedInvestors[iname]+=invested;  
             }else{
                 aggregatedInvestors[iname] = invested;
             }
-           
         }
-        //aggregatedInvestors[iname] = "anything";
-        
-
     }
     
-    
-
     var aAggregated = [];
     Object.keys(aggregated).forEach(function (name_) {
         var company = {};
@@ -64,18 +54,12 @@ function setup() {
         aAggregated.push(company);
     });
 
-
     var aAggregatedInvestors = [];
     Object.keys(aggregatedInvestors).forEach(function (name_) {
 
         var investor = new Investor(name_, aggregatedInvestors[name_]);
-       
         aAggregatedInvestors.push(investor);
     });
-    
-    console.log(aAggregatedInvestors);
-
-
 
     aAggregated = aAggregated.sort(function (companyA, companyB) {
         return companyB.sum - companyA.sum;
@@ -101,17 +85,11 @@ function setup() {
             aCategories.push(row);
         }
     }
-
-
     aCategories.sort(
         function (categoryA, categoryB) {
             return categoryB.count - categoryA.count;
         });
 
-
-    //print(aCategories);
-
-    //we are creating 100 particles for the first 100 top companies (aAggregated provides the top companies)
     for (var i = 0; i < 175; i++) {
         //get the category code
         var company_name = aAggregated[i].name;
@@ -133,7 +111,6 @@ function setup() {
             else return false;
         });
 
-
         var foundInvestor = false;
         if (foundCompany) {
             foundInvestor = aAggregatedInvestors.find(function (element, index, array) {
@@ -148,7 +125,6 @@ function setup() {
             connection.investor = foundInvestor;
             connection.amount = invested;
             connections.push(connection);
-
         }
     }
 
@@ -164,11 +140,7 @@ function setup() {
         angle = i * 360 / uniqueInvestors.length;
         uniqueInvestors[i].x = width / 2;
         uniqueInvestors[i].y = height / 2;
-    
-    /*300 * Math.sin(angle) +*/
-        
     }
-
 }
 
 function draw() {
@@ -179,26 +151,21 @@ function draw() {
         for (var i = 0; i < uniqueInvestors.length - 1; i++) {
             noStroke();
             fill(0, 100, 100, 100);
-            
-            
-            //ellipse(Investors[i].x, uniqueInvestors[i].y, sqrt(connection[i].amount / 4000), sqrt(connection[i].amount / 4000));
-            
-            //sqrt(aAggregatedInvestors[i].amount / 4000)
         }
+        
     textFont("Avenir");
     noStroke();
     fill(0);
     textAlign(LEFT);
     textSize(24);
-    text("The Top 200", width / 25, 40);
+    text("THE TOP 200", width / 25, 40);
     textSize(14)
     fill(0);
-    text("Companies with the Largest Investments in 2013", width / 25, 70)
+    text("A Vizualization of Companies with the Largest Investments in 2013", width / 25, 70)
     textSize(10);
     fill(255);
     text("Produced by Kelsey Rogers", width / 25, 89);
     textSize(9);
-    
     
     fill(255);
     textSize(12);
@@ -260,14 +227,8 @@ function draw() {
     text("Data Source: CrunchBase 2013 Snapshot © 2013", width/1.01, height/1.01);
     fill(255);
     text("Northeastern University | MArch | 2016", width /1.2, height/1.01);
-    
     }
 
-    /*for (var i=0; i<connections.length; i++){
-        particleSystem.find(function(element, index, array){
-            if(element.name == )
-        });
-    }*/
     if (backDisplay == true) {
         noStroke();
         fill(200);
@@ -285,32 +246,24 @@ function draw() {
                     investorObject = connections[i].investor;
                     var investorInList = investorsToDisplay.find(function (iv) {
                         return investorObject == iv;
-
                     });
-
                     if (!investorInList) {
                         investorsToDisplay.push(connections[i].investor);
                     }
                 }
-                
             }
 
-            //make function that makes the investors evenly spaced
             for (var i = 0; i < investorsToDisplay.length; i++) {
                 var inv = investorsToDisplay[i];
                 angle = i * TWO_PI / investorsToDisplay.length;
                 var x = 220 * cos(angle) + width / 2;
                 var y = 220 * sin(angle) + height / 2;
-
                 var newPos = createVector(x, y);
                 inv.trigger(newPos);
                 inv.x = companyToDisplay.pos.x;
                 inv.y = companyToDisplay.pos.y;
-
             }
-
             mouseClicked_ = false;
-
         }
 
         investorsToDisplay.forEach(function (investor) {
@@ -324,23 +277,12 @@ function draw() {
     text("Data Source: CrunchBase 2013 Snapshot © 2013", width/1.01, height/1.01);
     fill(255);
     text("Northeastern University | MArch | 2016", width /1.2, height/1.01);
-
     }
 
     if (companyToDisplay != null) {
         companyToDisplay.draw();
         companyToDisplay.update();
-
-        /*for(var i=0; i<connections.length; i++){
-            if (connections[i].company.name == companyToDisplay.name){
-                break;
-            }
-        }*/
-
-
     } else {
-
-        //pairwise comparisons
         for (var STEPS = 0; STEPS < 4; STEPS++) {
             for (var i = 0; i < particleSystem.length - 1; i++) {
                 for (var j = i + 1; j < particleSystem.length; j++) {
@@ -368,21 +310,14 @@ function draw() {
             p.update();
         });
 
-
         attractors.forEach(function (at) {
-
-            at.draw();
-
+        at.draw();
         });
-
     }
-
 }
-
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-
 }
 
 var Investor = function (name, amount) {
@@ -423,20 +358,15 @@ var Investor = function (name, amount) {
         
         var shortName;
             
-            if (this.name.length>23){
+            if (this.name.length>25){
                 split = this.name.split(" ");
                 split.splice(0, split.length - 1);
                 shortName = join(split, " ");
                 text(shortName, 0,0);
-                console.log ("hello");
             }else{
-        
-            text(this.name, 0,0);
-                
-            }
-        
+            text(this.name, 0,0);       
+            } 
         pop();
-        
         var newRadius = 2.1;
         var newx = this.x + (companyToDisplay.pos.x - this.x)/newRadius;
         var newy = this.y + (companyToDisplay.pos.y - this.y)/newRadius;
@@ -453,13 +383,11 @@ var Investor = function (name, amount) {
         }
         text("$" + nfc(this.amount, 0), 0,0);
         pop();
-
     }
 
     this.trigger = function (newPos) {
         this.newPos = newPos;
         arrived = false;
-
     }
 
     this.update = function () {
@@ -474,12 +402,6 @@ var Investor = function (name, amount) {
             this.y = this.y + vel.y;
         }
     }
-}
-
-
-var homeDisplay = function(){
-    
-    
 }
 
 var Particle = function (name, sum, category) {
@@ -628,19 +550,15 @@ var Particle = function (name, sum, category) {
             text("Number of Investor Companies: " + investorsToDisplay.length, width/25, 89);
             textSize(9);
             fill(136, 65, 54, 100);
-            text("Total Investment Amount: $"+nfc(this.sum, 0), width/25, 108);
-            
+            text("Total Investment Amount: $"+nfc(this.sum, 0), width/25, 108);   
         }
     }
-
 
     this.getPos = function () {
         return pos.copy();
     }
 
     this.draw = function () {
-
-
 
         noStroke();
         if (isMouseOver) {
@@ -662,12 +580,8 @@ var Particle = function (name, sum, category) {
             textSize(10);
             text("Total Investments (USD):", this.pos.x, this.pos.y + 9);
             text("$" + nfc(this.sum, 0), this.pos.x, this.pos.y + 20);
-            //text("Category:" + this.category, this.pos.x, this.pos.y + 25);
         }
-
     }
-
-
 
     this.getSize = function () {
         return psize;
@@ -697,9 +611,6 @@ var Particle = function (name, sum, category) {
             instance.radius = initialRadius;
         }
     }
-
-
-
 }
 
 var Attractor = function (pos, s) {
@@ -708,7 +619,6 @@ var Attractor = function (pos, s) {
     this.draw = function () {
         noStroke();
         fill(100, 100, 100, 100);
-        //ellipse(pos.x, pos.y, strength, strength);
     }
 
     this.getStrength = function () {
@@ -717,7 +627,6 @@ var Attractor = function (pos, s) {
     this.getPos = function () {
         return pos.copy();
     }
-
 }
 
 function mouseClicked() {
@@ -735,7 +644,6 @@ function mouseClicked() {
                 break;
             }
         }
-
         investorsToDisplay = [];
         backDisplay = true;
     }
@@ -744,8 +652,5 @@ function mouseClicked() {
 
         companyToDisplay = null;
         backDisplay = false;
-
     }
-
-
 }
