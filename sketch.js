@@ -221,6 +221,11 @@ function draw() {
     text("Other", width / 25, 320);
     ellipse(width/35, 316, 10, 10);
         
+    fill(255);
+    textAlign(CENTER);
+    textSize(18);
+    text("The Companies", width / 2, height/ 1.1);
+        
     textAlign(RIGHT);
     fill(30);
     textSize(9);
