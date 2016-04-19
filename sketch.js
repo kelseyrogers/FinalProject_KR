@@ -546,15 +546,15 @@ var Particle = function (name, sum, category) {
             fill(0);
             textAlign(LEFT);
             textSize(24);
-            text("Investors For: " + companyToDisplay.name, width / 25, 40);
+            text("Investors for: " + companyToDisplay.name, width / 25, 40);
             textSize(14)
             fill(0);
             text("Company Type: " + companyToDisplay.category, width/25, 70)
-            textSize(10);
-            fill(255);
+            textSize(14);
+            fill(0);
             text("Number of Investor Companies: " + investorsToDisplay.length, width/25, 89);
-            textSize(9);
-            fill(136, 65, 54, 100);
+            textSize(14);
+            fill(0);
             text("Total Investment Amount: $"+nfc(this.sum, 0), width/25, 108);   
         }
     }
@@ -584,7 +584,7 @@ var Particle = function (name, sum, category) {
             text(this.name, this.pos.x, this.pos.y - 5);
             textSize(10);
             text("Total Investments (USD):", this.pos.x, this.pos.y + 9);
-            text("$" + nfc(this.sum, 0), this.pos.x, this.pos.y + 20);
+            text("$" + nfc(this.sum, 0), this.pos.x, this.pos.y + 22);
         }
     }
 
